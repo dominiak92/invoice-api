@@ -2,31 +2,27 @@ const asyncHandler = require("express-async-handler");
 const Invoice = require("../models/invoiceModel");
 const User = require("../models/userModel");
 
-// @desc Get invoices
+// @desc Get all invoices for a user
 // @route GET /api/invoices
 // @access Private
 
 const getInvoices = asyncHandler(async (req, res) => {
-  const invoice = await Invoice.find({ user: req.user.id });
-  res.status(200).json(invoice);
+  const invoices = await Invoice.find({ user: req.user.id });
+  res.status(200).json(invoices);
 });
 
-// @desc Set invoices
+// @desc Create a new invoice
 // @route POST /api/invoices
 // @access Private
 
-const setInvoices = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
-    res.status(400);
-    throw new Error("Please add a text field");
-  }
-
-  const invoice = await Invoice.create({
-    text: req.body.text,
+const createInvoice = asyncHandler(async (req, res) => {
+  const invoice = new Invoice({
+    ...req.body,
     user: req.user.id,
   });
 
-  res.status(200).json(invoice);
+  const createdInvoice = await invoice.save();
+  res.status(201).json(createdInvoice);
 });
 
 // @desc Update invoices
@@ -37,7 +33,7 @@ const updateInvoice = asyncHandler(async (req, res) => {
   const invoice = await Invoice.findById(req.params.id);
 
   if (!invoice) {
-    res.status(400);
+    res.status(404);
     throw new Error("Invoice not found");
   }
 
@@ -52,14 +48,12 @@ const updateInvoice = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
 
-  const updatedInvoice = await Invoice.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-
+  Object.assign(invoice, req.body);
+  const updatedInvoice = await invoice.save();
   res.status(200).json(updatedInvoice);
 });
 
-// @desc Delete invoices
+// @desc Delete an invoice
 // @route DELETE /api/invoices/:id
 // @access Private
 
@@ -67,7 +61,7 @@ const deleteInvoice = asyncHandler(async (req, res) => {
   const invoice = await Invoice.findById(req.params.id);
 
   if (!invoice) {
-    res.status(400);
+    res.status(404);
     throw new Error("Invoice not found");
   }
 
@@ -89,7 +83,7 @@ const deleteInvoice = asyncHandler(async (req, res) => {
 
 module.exports = {
   getInvoices,
-  setInvoices,
+  createInvoice,
   updateInvoice,
   deleteInvoice,
 };
