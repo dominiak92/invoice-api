@@ -71,7 +71,7 @@ const invoiceSchema = mongoose.Schema({
     status: {
         type: String,
         required: true,
-        enum: ['pending', 'paid', 'overdue'] // Przykładowe statusy faktury
+        enum: ['pending', 'paid', 'draft'] // Przykładowe statusy faktury
     },
     senderAddress: {
         type: addressSchema,

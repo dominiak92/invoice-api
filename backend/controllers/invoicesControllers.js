@@ -18,7 +18,7 @@ const getInvoices = asyncHandler(async (req, res) => {
 const createInvoice = asyncHandler(async (req, res) => {
   const invoice = new Invoice({
     ...req.body,
-    user: req.user.id,
+    user: req.user.id, 
   });
 
   const createdInvoice = await invoice.save();
