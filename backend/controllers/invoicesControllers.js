@@ -11,6 +11,24 @@ const getInvoices = asyncHandler(async (req, res) => {
   res.status(200).json(invoices);
 });
 
+// @desc Get a single invoice for a user by ID
+// @route GET /api/invoices/:id
+// @access Private
+
+const getInvoiceById = asyncHandler(async (req, res) => {
+  const invoice = await Invoice.findById(req.params.id);
+  if (!invoice) {
+    res.status(404);
+    throw new Error("Invoice not found");
+  }
+  if (invoice.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  res.status(200).json(invoice);
+});
+
 // @desc Create a new invoice
 // @route POST /api/invoices
 // @access Private
@@ -18,7 +36,7 @@ const getInvoices = asyncHandler(async (req, res) => {
 const createInvoice = asyncHandler(async (req, res) => {
   const invoice = new Invoice({
     ...req.body,
-    user: req.user.id, 
+    user: req.user.id,
   });
 
   const createdInvoice = await invoice.save();
@@ -83,6 +101,7 @@ const deleteInvoice = asyncHandler(async (req, res) => {
 
 module.exports = {
   getInvoices,
+  getInvoiceById,
   createInvoice,
   updateInvoice,
   deleteInvoice,
