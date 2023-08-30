@@ -1,5 +1,4 @@
-###INVOICE API for INVOICE APP
-
+### INVOICE API FOR INVOICE APP
 
 API Endpoints
 -------------
