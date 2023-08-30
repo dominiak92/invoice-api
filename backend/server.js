@@ -9,7 +9,8 @@ connectDB();
 
 const app = express();
 app.use(cors({
-    origin:'http://localhost:3000' // Zakładając, że Twój klient działa na porcie 3000
+    origin: 'https://dazzling-bienenstitch-1eab4c.netlify.app' 
+    // || 'http://localhost:3000' // Zakładając, że Twój klient działa na porcie 3000
   }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
