@@ -1,4 +1,4 @@
-#INVOICE API for INVOICE APP
+###INVOICE API for INVOICE APP
 
 
 API Endpoints
@@ -64,5 +64,3 @@ Technologies Used
 * * * * *
 
 Remember to replace `<repository_url>`, `<project_directory>`, `<your_mongodb_uri>`, and `<your_jwt_secret>` with actual values. Also, ensure you have a MongoDB database set up and running.
-
-Please note that this is a simplified README for demonstration purposes. You can enhance and customize it according to your project's needs.
