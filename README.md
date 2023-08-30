@@ -1,4 +1,6 @@
-INVOICE API FOR INVOICE APP
+### INVOICE API FOR INVOICE APP
+
+API Endpoints
 -------------
 
 ### Get All Invoices
