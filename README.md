@@ -61,5 +61,3 @@ Technologies Used
 -   MongoDB
 
 * * * * *
-
-Remember to replace `<repository_url>`, `<project_directory>`, `<your_mongodb_uri>`, and `<your_jwt_secret>` with actual values. Also, ensure you have a MongoDB database set up and running.
